@@ -11,6 +11,9 @@ class FormModel(BaseModel):
     title: str = Field(...,example="My Form")
     description: Optional[str] = Field(...,example="This is my form")
     fields: List[FieldModel] 
+class FormResponse(BaseModel):
+    form_id: str = Field(...,example="6676e8ee20a81fa20ea84072")
+    data: dict = Field(...,example={'Name': 'John'})
 
 class User(BaseModel):
     username: str = Field(...,example="hariskhan")

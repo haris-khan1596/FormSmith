@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.models import FormModel
+from app.models import FormModel, FormResponse
 from typing import List
 from app.database import db
 from .auth import token, decode_token
@@ -146,3 +146,64 @@ async def update(form_id: str, form: FormModel, token: str = Depends(token)):
     db.forms.update_one({"_id": form_id, "user_id": user["id"]}, {"$set": form.dict()})
     return {"message": "Form updated successfully"}
 
+@router.post("/submit/{form_id}", responses={
+        200: {"description": "Form submitted successfully"},
+        404: {"description": "Form not found"},
+})
+async def submit_form(form_id: str, data: FormResponse):
+    """
+    Submits a form in the database.
+
+    Parameters:
+        form_id (str): The ID of the form to be submitted.
+        token (str, optional): The authentication token. Defaults to Depends(token).
+
+    Returns:
+        dict: A dictionary containing the message.
+
+    Raises:
+        HTTPException: If the form is not found.
+
+    """
+    form = db.forms.find({"_id": form_id})
+    if not form:
+        raise HTTPException(status_code=404, detail="Form not found")
+    print(data)
+    db.responses.insert_one({**data.dict()})
+    
+    return {"message": "Form submitted successfully"}
+
+@router.get("/responses/{form_id}")
+async def get_responses(form_id: str):
+    """
+    Get responses for a specific form.
+
+    Args:
+        form_id (str): The ID of the form.
+
+    Returns:
+        responses (Cursor): A cursor of responses.
+    """
+    # Get all responses for a specific form
+    responses = db.responses.find({"form_id": form_id})
+
+    # Return the responses
+    return responses
+    
+@router.get("/responses/{form_id}/{response_id}")
+async def get_response(form_id: str, response_id: str):
+    """
+    Get a response for a specific form.
+
+    Args:
+        form_id (str): The ID of the form.
+        response_id (str): The ID of the response.
+
+    Returns:
+        response (Cursor): A cursor of responses.
+    """
+    # Get all responses for a specific form
+    response = db.responses.find_one({"_id": response_id})
+
+    # Return the responses
+    return response
