@@ -12,7 +12,7 @@ SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 160
 
-token = OAuth2PasswordBearer(tokenUrl="token")
+token = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 def authenticate_user(username: str, password: str):
     """
@@ -31,6 +31,24 @@ def authenticate_user(username: str, password: str):
     return False
 
 
+def decode_token(token: str):
+    """
+    A function to decode an access token.
+
+    Parameters:
+    - token: str, the access token to be decoded.
+
+    Returns:
+    - Returns the decoded token if it is valid, otherwise returns None.
+    """
+    token_data = {"name": "", "id": ""}
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
+        token_data["name"] = payload.get("sub")
+        token_data["id"] = payload.get("id")
+    except JWTError:
+        return None
+    return token_data
 def create_access_token(data: dict):
     """
         A function to create an access token based on the provided data.
@@ -70,7 +88,7 @@ async def register(form: User):
     hashed_password = bcrypt.hashpw(form_dict["password"].encode('utf-8'), bcrypt.gensalt())
     form_dict["password"] = hashed_password.decode('utf-8')
     db.users.insert_one(form_dict)
-    access_token = create_access_token(data={"sub": form_dict["username"]})
+    access_token = create_access_token(data={"sub": form_dict["username"],"id": str(form_dict["_id"])})
     return {"access_token": access_token, "token_type": "bearer"}
 
 
@@ -96,5 +114,5 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form.username, form.password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
-    access_token = create_access_token(data={"sub": user["username"]})
+    access_token = create_access_token(data={"sub": user["username"],"id": str(user["_id"])})
     return {"access_token": access_token, "token_type": "bearer"}
