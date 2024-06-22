@@ -1,13 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel
-from typing import Optional
+from app.models import FormModel
 from app.database import db
 
-
-class FormModel(BaseModel):
-    title: str
-    description: Optional[str]
 
 router = APIRouter()
 

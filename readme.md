@@ -11,7 +11,7 @@ python -m venv venv
 ```
 2. Install Python Packages
 ```
-pip install requirement.txt
+pip install -r requirements.txt
 ```
 3. Start Server
 ```
@@ -20,11 +20,13 @@ uvicorn app.main:app --reload
 ## Roadmap
 ### Features
 It would have the following features:
+| #  | Feature                     | Status                |
+| :-:| :-------------------------- | :-------------------- |
+| 1. | User login and registration | :heavy_check_mark:    |
+| 2. | Creating of Form            | :construction:        |
+| 3. | Updating of Form            | :construction:        |
+| 4. | Deleting of Form            | :construction:        |
 
-1. User login and registration.
-1. Creating of Form
-1. Updating of Form
-1. Deleting of Form
-1. 
+
 ![img](./images/features.png)
 ---
