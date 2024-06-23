@@ -20,5 +20,5 @@ class User(BaseModel):
     password: str = Field(...,example="password")
 
 class Token(BaseModel):
-    access_token: str = Field(...,example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdHJuZyIsImV4cCI6MTcxOTA2ODQ3NH0.p4zIuXQdvjjoqXFNv3DJvfaO3GFIhoJmE23trILzkd0")
+    access_token: str = Field(...,example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
     token_type: str = Field(...,example="bearer")

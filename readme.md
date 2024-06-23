@@ -29,4 +29,14 @@ It would have the following features:
 
 
 ![img](./images/features.png)
+
+### Screens
+1. Login page
+2. Signup page
+2. Dashboard (old forms and new form)
+    - if new user enter only new button
+3. Individual form page
+4. Update form page
+5. Form Single Responses page 
+6. Form response data in tabular
 ---
