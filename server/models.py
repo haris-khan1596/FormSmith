@@ -6,6 +6,7 @@ class FieldModel(BaseModel):
     label: str = Field(...,example="Name")
     required: bool = Field(...,example="true")
     placeholder: Optional[str] = Field(...,example="Enter your name")
+    values: Optional[List[str]] = Field(...,example=["John", "Jane"])
 
 class FormModel(BaseModel):
     title: str = Field(...,example="My Form")

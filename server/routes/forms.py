@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.models import FormModel, FormResponse
+from server.models import FormModel, FormResponse
 from typing import List
-from app.database import db
+from server.database import db
 from .auth import token, decode_token
 
 

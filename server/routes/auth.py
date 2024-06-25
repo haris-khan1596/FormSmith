@@ -2,8 +2,8 @@ import os
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from app.database import db
-from app.models import User, Token
+from server.database import db
+from server.models import User, Token
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 import bcrypt
