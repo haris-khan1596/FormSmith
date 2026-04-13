@@ -7,7 +7,7 @@ from .auth import token, decode_token
 
 router = APIRouter()
 
-@router.get("/all", response_model=list[FormModel])
+@router.get("/all")
 async def root(token: str = Depends(token)):
     """
     Returns a list of all forms in the database of the authenticated user.
