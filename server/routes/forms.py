@@ -28,7 +28,7 @@ async def root(token: str = Depends(token)):
     for i in form:
         i["_id"] = str(i["_id"])
         form_list.append(i)
-    return {"data": form_list} 
+    return form_list
 
 @router.post("/create", responses={
         200: {"description": "Form created successfully"},

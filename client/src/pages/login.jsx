@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, setToken } from '../actions/authActions';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { LOGIN_URL } from '../utils/url_container';
 import axios from 'axios';
 
@@ -67,6 +67,7 @@ catch(err){
         <br />
         <button type="submit">Login</button>
       </form>
+      <p className="auth-link">Don't have an account? <Link to="/register">Register</Link></p>
     </div>
   )
 }
