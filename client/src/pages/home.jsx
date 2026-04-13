@@ -11,7 +11,7 @@ const Home = () => {
   const fetchForms = async () => {
     try {
       const res = await api.get('/forms/all');
-      setForms(res.data.data || []);
+      setForms(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       setError('Failed to load forms.');
     } finally {
